@@ -1,38 +1,49 @@
 services:
   nginx:
-    build: requirements/nginx/.
+    build: nginx/
     container_name: nginx
     depends_on:
       - wordpress
       - mariadb
     ports:
-      - "80:80"
+      - 443:443
     volumes:
-      - wordpress_web:/var/www/html
+      - web:/var/www/html
     networks:
       inception:
+
   wordpress:
-    build: requirements/wordpress/.
+    build: wordpress/
     container_name: wp-php
     depends_on:
       - mariadb
     volumes:
-      - wordpress_web:/var/www/html
+      - web:/var/www/html
     networks:
       inception:
+
   mariadb:
-    build: requirements/mariadb/.
+    build: mariadb/
     container_name: mariadb
     volumes:
-      - wordpress_db:/var/lib/mysql
+      - db:/var/lib/mysql
     networks:
       inception:
+
+volumes:
+  web:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/svan-hoo/data/wordpress_web
+      o: bind
+
+  db:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/svan-hoo/data/wordpress_db
+      o: bind
 
 networks:
   inception:
-
-volumes:
-  wordpress-web:
-    name: "/home/svan-hoo/data/wordpress_web"
-  wordpress-db:
-    name: "/home/svan-hoo/data/wordpress_db"
