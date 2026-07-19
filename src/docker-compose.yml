@@ -25,7 +25,7 @@ services:
     ports:
       - 443:443
     depends_on:
-      - wordpress
+      - wp-php
       - mariadb
     volumes:
       - website:/var/www/html
