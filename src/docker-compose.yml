@@ -8,7 +8,7 @@ services:
       - inception
     env_file: ../.env
 
-  wordpress:
+  wp-php:
     build: wordpress/
     container_name: wp-php
     depends_on:
