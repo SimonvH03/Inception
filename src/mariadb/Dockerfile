@@ -1,19 +1,16 @@
-FROM debian:bookworm
+FROM alpine:3.24
 
-RUN apt update && apt upgrade && apt install -y \
-    mariadb-server
+RUN apk add --no-cache \
+    mariadb \
+    mariadb-client
 
 RUN mkdir /var/run/mysqld \
-    && chown -R myql:mysql /var/run/mysqld \
-    && chmod +x /var/run/mysqld
+    && chown -R mysql:mysql /var/run/mysqld \
+    && chmod 777 /var/run/mysqld
 
 EXPOSE 3306
 
-COPY mariadb.conf /etc/mysql/mariadb.conf.d/50-server.cnf
-COPY init.sql /etc/mysql/init.sql
-COPY init_mariadb.sh ./init.sh
+COPY ./init_mariadb.sh /init.sh
+COPY ./mariadb-server.cnf /etc/my.cnf.d
 
-RUN chmod +x ./init.sh
-RUN mkdir /run/mysqld
-
-CMD ["./init.sh"]
+CMD ["/init.sh"]

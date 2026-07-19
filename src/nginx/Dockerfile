@@ -1,14 +1,15 @@
-FROM debian:bookworm
+FROM alpine:3.24
 
-RUN apt update && apt upgrade && apt install -y \
+RUN apk add --no-cache \
     nginx \
     openssl
 
-COPY nginx.conf /etc/nginx/sites-available/default
+COPY default.conf /etc/nginx/http.d/default.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 RUN mkdir /etc/nginx/ssl \
     && openssl req -x509 -newkey rsa:4096 \
-    -keyout/etc/nginx/ssl/key.pem \
+    -keyout /etc/nginx/ssl/key.pem \
     -out /etc/nginx/ssl/cert.pem \
     -sha256 -days 365 -nodes -subj '/CN=svan-hoo.42.fr' -batch
 
