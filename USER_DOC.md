@@ -23,7 +23,7 @@ WP_USER=
 WP_USER_PASSWORD=
 WP_USER_MAIL=
 ```
-these will be used by the mariadb and wordpress (wp-php) containers to create the database and authorise internal service.
+fill each field with a value of your liking; these will be used by the mariadb and wordpress (wp-php) containers to create the database and authorise internal service.
 
 ## optional: configure a domain name
 add the following line to /etc/hosts (root access may be required)
