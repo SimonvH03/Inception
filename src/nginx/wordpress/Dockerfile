@@ -20,7 +20,6 @@ COPY php.ini /etc/php84/php.ini
 
 RUN [ "ln", "-s", "/usr/bin/php84", "/bin/php" ] # wp-cli expects php to be in $PATH
 
-#COPY ./run_or_bootstrap.sh /init.sh
 COPY ./init_php.sh /init.sh
 
 CMD ["/init.sh"]
