@@ -2,6 +2,7 @@ services:
   mariadb:
     build: mariadb/
     container_name: mariadb
+    restart: unless-stopped
     volumes:
       - database:/var/lib/mysql
     networks:
@@ -11,6 +12,7 @@ services:
   wp-php:
     build: wordpress/
     container_name: wp-php
+    restart: unless-stopped
     depends_on:
       - mariadb
     volumes:
@@ -22,6 +24,7 @@ services:
   nginx:
     build: nginx/
     container_name: nginx
+    restart: unless-stopped
     ports:
       - 443:443
     depends_on:
